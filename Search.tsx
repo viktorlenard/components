@@ -1,4 +1,4 @@
-// VN240620.5
+// VN240620.6
 
 import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
@@ -71,9 +71,16 @@ export const Search = () => {
     }
 
     // GSAP Animation timelines.
+    const openTl = useRef<GSAPTimeline>();
+    const closeTl = useRef<GSAPTimeline>();
+
+    // GSAP Animation timelines.
     const openSearch = contextSafe(() => {
         setIsOpen(true);
-        gsap.timeline()
+        if (closeTl.current) {
+            closeTl.current.kill()
+        }
+        openTl.current = gsap.timeline()
             .to(contentRef.current, {opacity: 0, duration: 0})
             .to(barRef.current, {y: -200, duration: 0.9, ease:'elastic.out(1,0.9)'})
             .to(barRef.current, {width: dimensions.openWidth, height: dimensions.openHeight, duration: 0.9, ease:'elastic.out(1,0.9)'}, '<')
@@ -82,7 +89,10 @@ export const Search = () => {
 
     const closeSearch = contextSafe(() => {
         setIsOpen(false);
-        gsap.timeline()
+        if (openTl.current) {
+            openTl.current.kill()
+        }
+        closeTl.current = gsap.timeline()
             .to(contentRef.current, {opacity: 0, duration: 0})
             .to(barRef.current, {y: 0, duration: 0.4, ease: 'power2.out'})
             .to(barRef.current, {width: dimensions.closedWidth, height: dimensions.closedHeight, duration: 0.4, ease: 'power2.out'}, '<')
