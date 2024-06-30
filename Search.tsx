@@ -1,4 +1,4 @@
-// VN240620.6
+// VN240620.7
 
 import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
@@ -102,7 +102,7 @@ export const Search = () => {
 
     return (
         <div ref={barRef} style={{width: dimensions.closedWidth, height: dimensions.closedHeight}} onClick={searchToggle} 
-            className='flex justify-left items-center pl-2 rounded-2xl bg-stone-300 overflow-hidden text-stone-600'>
+            className='flex justify-left items-center pl-2 rounded-2xl bg-zinc-900 overflow-hidden text-gray-300'>
             <div className='flex justify-between items-center min-h-full min-w-full'>
                 <div className='flex justify-center items-center px-2'>
                     <div className='flex items-center justify-center rounded-full ml-[11px] mr-[5px]'>
@@ -110,17 +110,17 @@ export const Search = () => {
                     </div>
                     <div ref={contentRef} className='flex items-center justify-between min-w-full'>
                         {isOpen ? (
-                            <input ref={fieldRef} className='bg-stone-300 text-stone-600 font-semibold min-w-[210px] whitespace-nowrap focus:outline-none' type="text" placeholder="Search" disabled={!isOpen} />
+                            <input ref={fieldRef} className='bg-zinc-900 text-gray-300 font-semibold min-w-[210px] whitespace-nowrap focus:outline-none' type="text" placeholder="Search" disabled={!isOpen} />
                         ) : (
                             <h1 className='font-semibold'>Search</h1>
                         )}
                         <div ref={contentRef} onClick={iconToggle} className='absolute right-0 mr-1 flex justify-center items-center min-h-12 cursor-pointer'>
                         {isOpen ? (
-                            <div className='bg-stone-500 py-1 px-1 rounded drop-shadow-lg mr-3'>
-                                <p className='text-xs font-semibold leading-none mx-[2px] text-stone-300'>esc</p>
+                            <div className='bg-gray-300 py-1 px-1 rounded drop-shadow-lg mr-3'>
+                                <p className='text-xs font-semibold leading-none mx-[2px] text-zinc-900'>esc</p>
                             </div>
                         ) : (
-                            <div className='flex items-center py-1 pr-2 text-stone-400'>
+                            <div className='flex items-center py-1 pr-2 text-gray-300'>
                                 <CommandSVG />
                                 <p className='text-sm font-semibold leading-none mx-[2px]'>K</p>
                             </div>
