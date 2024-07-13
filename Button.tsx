@@ -1,6 +1,6 @@
 // VN240630.1
 
-// Adjust style={{ minWidth: `${buttonWidth * 1.8}px` }} width.
+// Adjust style={{ minWidth: `${buttonWidth * 1.8}px` }} base width.
 // Based on your choice of typeface you might need to change the 25% translates.
 
 'use client'
