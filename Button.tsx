@@ -1,7 +1,7 @@
-// VN240630.1
+// VN240630.2
 
-// Adjust style={{ minWidth: `${buttonWidth * 1.8}px` }} base width.
-// Based on your choice of typeface you might need to change the 25% translates.
+// Adjust style={{ minWidth: `${buttonWidth * 1.8}px` }} for base width, style={{height: `${buttonHeight / 2.2}px`}} for base height. className prop can still adjust sizing.
+// Based on your choice of typeface you might need to change the translates.
 
 'use client'
 
@@ -15,7 +15,7 @@ gsap.registerPlugin(useGSAP);
 
 const ButtonStyle = 'px-1 py-1 rounded-sm' 
 const innerStyle = 'relative flex flex-col overflow-hidden justify-center items-center'
-const spanStyle = 'leading-none whitespace-nowrap'
+const spanStyle = 'leading-tight whitespace-nowrap'
 
 const sizes = {
   s: `text-xs`,
@@ -55,17 +55,17 @@ type ButtonProps = {
     const hoverButton = contextSafe(() => {
       if(!hovered) {
           setHovered(true) 
-          gsap.fromTo(buttonRef.current, {y: '25%',}, {y: '-25%', duration: 0.6, ease: 'power3.out'})
+          gsap.fromTo(buttonRef.current, {y: '23%',}, {y: '-27%', duration: 0.6, ease: 'power3.out'})
       } else if (hovered){
           setHovered(false)
-          gsap.fromTo(buttonRef.current, {y: '-25%'}, {y: '25%', duration: 0.4, ease: 'power3.out'})
+          gsap.fromTo(buttonRef.current, {y: '-27%'}, {y: '23%', duration: 0.4, ease: 'power3.out'})
       }
     })
 
     return typeof props.href === 'undefined' ? (
           <button onMouseEnter={hoverButton} onMouseLeave={hoverButton} className={clsx( dark ?  darkStyle : lightStyle, sizes[size], className )} style={{ minWidth: `${buttonWidth * 1.8}px` }} {...props}>
-            <h3 className={innerStyle} style={{height: `${buttonHeight / 2}px`}}>
-                    <div ref={buttonRef} style={{transform: 'translateY(25%)'}} className='absolute flex flex-col'>
+            <h3 className={innerStyle} style={{height: `${buttonHeight / 2.2}px`}}>
+                    <div ref={buttonRef} style={{transform: 'translateY(23%)'}} className='absolute flex flex-col'>
                         <span className={spanStyle}>{children}</span>
                         <span className={spanStyle}>{children}</span>
                     </div>
@@ -73,8 +73,8 @@ type ButtonProps = {
           </button>
       ) : (
         <Link onMouseEnter={hoverButton} onMouseLeave={hoverButton} className={clsx( dark ?  darkStyle : lightStyle, sizes[size], className )} style={{ minWidth: `${buttonWidth * 1.8}px` }} {...props}>
-          <h3 className={innerStyle} style={{height: `${buttonHeight / 2}px`}}>
-                <div ref={buttonRef} style={{transform: 'translateY(25%)'}} className='absolute flex flex-col'>
+          <h3 className={innerStyle} style={{height: `${buttonHeight / 2.2}px`}}>
+                <div ref={buttonRef} style={{transform: 'translateY(23%)'}} className='absolute flex flex-col'>
                     <span className={spanStyle}>{children}</span>
                     <span className={spanStyle}>{children}</span>
                 </div>
