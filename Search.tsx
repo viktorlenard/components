@@ -1,4 +1,4 @@
-// VN240620.7
+// VN240620.8
 
 import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
@@ -9,6 +9,7 @@ gsap.registerPlugin(useGSAP);
 export const Search = () => {
 
     const [isOpen, setIsOpen] = useState(false)
+    const [moving, setMoving] = useState(false);
 
     const barRef = useRef<HTMLDivElement>(null); // Ref to target the search bar
     const contentRef = useRef<HTMLDivElement>(null); // Ref to target the bar's children
@@ -45,7 +46,7 @@ export const Search = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [isOpen]);
+    }, [isOpen, moving]);
 
     // Focus the field when the bar opens.
     useEffect(() => {
@@ -76,29 +77,26 @@ export const Search = () => {
 
     // GSAP Animation timelines.
     const openSearch = contextSafe(() => {
+        if(!moving){
+        setMoving(true);
         setIsOpen(true);
-        if (closeTl.current) {
-            closeTl.current.kill()
-        }
         openTl.current = gsap.timeline()
-            .to(contentRef.current, {opacity: 0, duration: 0})
-            .to(barRef.current, {y: -200, duration: 0.9, ease:'elastic.out(1,0.9)'})
-            .to(barRef.current, {width: dimensions.openWidth, height: dimensions.openHeight, duration: 0.9, ease:'elastic.out(1,0.9)'}, '<')
-            .to(contentRef.current, {opacity: 100, delay: 0.1, duration: 0.2}, '<')
-    });
+            .fromTo(contentRef.current, {opacity:100 }, {opacity: 0, duration: 0})
+            .fromTo(barRef.current, {y: 0 }, {y: -200, duration: 0.8, ease:'elastic.out(1,0.9)', onComplete: () => {setMoving(false)}})
+            .fromTo(barRef.current, {width: dimensions.closedWidth, height: dimensions.closedHeight}, {width: dimensions.openWidth, height: dimensions.openHeight, duration: 0.8, ease:'elastic.out(1,0.9)'}, '<')
+            .fromTo(contentRef.current, {opacity: 0}, {opacity: 100, delay: 0.1, duration: 0.2}, '<')
+    }});
 
     const closeSearch = contextSafe(() => {
+        if(!moving){
+        setMoving(true);
         setIsOpen(false);
-        if (openTl.current) {
-            openTl.current.kill()
-        }
         closeTl.current = gsap.timeline()
-            .to(contentRef.current, {opacity: 0, duration: 0})
-            .to(barRef.current, {y: 0, duration: 0.4, ease: 'power2.out'})
-            .to(barRef.current, {width: dimensions.closedWidth, height: dimensions.closedHeight, duration: 0.4, ease: 'power2.out'}, '<')
-            .to(contentRef.current, {opacity: 100, duration: 0.2}, '<')
-
-    });
+            .fromTo(contentRef.current, {opacity:100 }, {opacity: 0, duration: 0})
+            .fromTo(barRef.current, {y:-200 }, {y: 0, duration: 0.4, ease: 'power2.out', onComplete: () => {setMoving(false)}})
+            .fromTo(barRef.current, {width: dimensions.openWidth, height: dimensions.openHeight}, {width: dimensions.closedWidth, height: dimensions.closedHeight, duration: 0.4, ease: 'power2.out'}, '<')
+            .fromTo(contentRef.current, {opacity: 0}, {opacity: 100, duration: 0.2}, '<')
+    }});
 
     return (
         <div ref={barRef} style={{width: dimensions.closedWidth, height: dimensions.closedHeight}} onClick={searchToggle} 
