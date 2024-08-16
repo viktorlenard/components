@@ -79,8 +79,9 @@ export const Search = () => {
         setIsOpen(true);
         openTl.current = gsap.timeline()
             .fromTo(contentRef.current, {opacity:100 }, {opacity: 0, duration: 0})
-            .fromTo(barRef.current, {y: 0 }, {y: -200, duration: 0.8, ease:'elastic.out(1,0.7)'})
-            .fromTo(barRef.current, {width: dimensions.closedWidth, height: dimensions.closedHeight}, {width: dimensions.openWidth, height: dimensions.openHeight, duration: 0.4, ease:'elastic.out(1,0.7)', onComplete: () => {setMoving(false)}}, '<')
+            .fromTo(barRef.current, {y: 0 }, {y: -150, duration: 0.9, ease:'elastic.out(1,0.7)'})
+            .to(barRef.current, {duration: 0.5, onComplete: () => {setMoving(false)}}, '<')
+            .fromTo(barRef.current, {width: dimensions.closedWidth, height: dimensions.closedHeight}, {width: dimensions.openWidth, height: dimensions.openHeight, duration: 0.7, ease:'elastic.out(1,0.7)'}, '<')
             .fromTo(contentRef.current, {opacity: 0}, {opacity: 100, delay: 0.1, duration: 0.2}, '<')
     }});
 
@@ -90,7 +91,7 @@ export const Search = () => {
         setIsOpen(false);
         closeTl.current = gsap.timeline()
             .fromTo(contentRef.current, {opacity:100 }, {opacity: 0, duration: 0})
-            .fromTo(barRef.current, {y:-200 }, {y: 0, duration: 0.4, ease: 'power2.out', onComplete: () => {setMoving(false)}})
+            .fromTo(barRef.current, {y:-150 }, {y: 0, duration: 0.4, ease: 'power2.out', onComplete: () => {setMoving(false)}})
             .fromTo(barRef.current, {width: dimensions.openWidth, height: dimensions.openHeight}, {width: dimensions.closedWidth, height: dimensions.closedHeight, duration: 0.4, ease: 'power2.out'}, '<')
             .fromTo(contentRef.current, {opacity: 0}, {opacity: 100, duration: 0.2}, '<')
     }});
