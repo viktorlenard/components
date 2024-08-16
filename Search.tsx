@@ -27,15 +27,12 @@ export const Search = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
         if (!isOpen && event.key === 'k' && (event.metaKey || event.ctrlKey)) {
             openSearch();
-            setIsOpen(true);
         } else if (isOpen && event.key === 'Escape') {
             closeSearch();
-            setIsOpen(false);
         } else if (isOpen && event.key === 'Enter') {
             if (fieldRef.current && fieldRef.current.value !== "") {
                 // This is where actual search would happen. At the moment it just closes the search bar.
                 closeSearch();
-                setIsOpen(false);
             }
         }
     };
